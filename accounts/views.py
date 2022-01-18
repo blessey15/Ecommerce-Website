@@ -13,6 +13,7 @@ def registration_view(request):  # Function used for registration
     if request.POST:
         form = RegistrationForm(request.POST)
         if form.is_valid():
+            print('hello')
             form.save()
             email = form.cleaned_data.get('email')
             raw_password = form.cleaned_data.get('password1')
@@ -34,7 +35,10 @@ def login_view(request):  # Function used for login
 
     if request.POST:
         form = AccountAuthenticationForm(request.POST)
+        print('hello..')
+
         if form.is_valid():
+            print('hellon')
             email = request.POST['email']
             password = request.POST['password']
             user = authenticate(email=email, password=password)
