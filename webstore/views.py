@@ -4,14 +4,14 @@ from django.shortcuts import render
 
 def store(request):
     context = {}
-    return render(request, 'store.html', context)
+    return render(request, 'store/store.html', context)
 
 
 def cart(request):
     context = {}
-    return render(request, 'cart.html', context)
+    return render(request, 'store/cart.html', context)
 
 
 def checkout(request):
     context = {}
-    return render(request, 'checkout.html', context)
+    return render(request, 'store/checkout.html', context)
