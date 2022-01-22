@@ -28,8 +28,8 @@
 
         <br />
         <div class="box-element">
-            <div class="cart-row">
-                <div style="flex: 2"></div>
+            <div class="cart-row" style="margin-left: 100px">
+                <div class="item-props" style="flex: 2"></div>
                 <div style="flex: 2"><strong>Item</strong></div>
                 <div style="flex: 1"><strong>Price</strong></div>
                 <div style="flex: 1"><strong>Quantity</strong></div>
@@ -42,7 +42,10 @@
                 <div style="flex: 1"><p>${{item.product.price|floatformat:2}}</p></div>
                 <div style="flex: 1">
                     <p class="quantity">{{item.quantity}}</p>
-                    <div class="quantity">
+                    <div
+                        class="quantity"
+                        style="margin-top: -3px; margin-left: -3px; position: fixed"
+                    >
                         <img
                             data-product="{{item.product.id}}"
                             data-action="add"
