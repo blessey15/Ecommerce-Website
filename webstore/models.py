@@ -1,5 +1,6 @@
 from django.db import models
 from accounts.models import Account
+from django.contrib.auth.models import User
 # Create your models here.
 
 GENDER_CHOICES=(
@@ -8,7 +9,7 @@ GENDER_CHOICES=(
 )
 
 class Customer(models.Model):
-    user = models.OneToOneField(Account, null=True, blank=True, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=25, null=True)
     contact = models.CharField(max_length=13, blank=False)
     dob = models.DateField()
