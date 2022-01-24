@@ -94,3 +94,7 @@ def processOrder(request):
         )
 
     return JsonResponse('Payment submitted..', safe=False)
+
+
+def paypal(request):
+    return render(request, 'payment.html', {})
