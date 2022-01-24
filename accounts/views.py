@@ -82,3 +82,6 @@ def account_view(request):
         )
     context['account_form'] = form
     return render(request, 'account.html', context)
+def feedback_view(request):
+        return render(request, 'feedback.html', {})
+        
