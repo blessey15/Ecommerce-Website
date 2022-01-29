@@ -100,15 +100,37 @@
                 error_message.innerHTML = text;
                 return false;
             }
-            if (isNaN(ccex))
-            {
-                text = "Please Enter valid month and year";
-                error_message.innerHTML = text;
-                return false;
-            }
+            var date_regex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
+
+    if(validDate(ccex)){
+    return false;
+    }
             alert("Payment done successfully!");
             return true;
         }
+</script>
+<script>
+    function validDate(dValue) {
+    console.log('rohi');
+  var result = false;
+  dValue = dValue.split('/');
+  var pattern = /^\d{2}$/;
+
+  if (dValue[0] < 1 || dValue[0] > 12)
+      result = true;
+
+  if (!pattern.test(dValue[0]) || !pattern.test(dValue[1]))
+      result = true;
+
+  if (dValue[2])
+      result = true;
+
+  if (result){
+  text = "Please Enter valid month and year";
+     error_message.innerHTML = text;
+  }
+  return result;
+}
 </script>
 
 </html>
