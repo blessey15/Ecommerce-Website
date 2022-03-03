@@ -91,7 +91,9 @@
                     </li>
                 </ul>
                 <div class="form-inline my-2 my-lg-0">
-                    <a href="{% url 'logout' %}" class="btn btn-warning">Logout</a>
+                    <a href="{% url 'profile' %}" class="btn btn-warning">Profile</a>
+
+                    <a href="{% url 'logout' %}" class="btn btn-warning" style="margin-left:1rem;">Logout</a>
 
                     <a href="{% url 'cart' %}">
                         <img id="cart-icon" src="{% static 'images/cart.png' %}" />

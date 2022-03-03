@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import login, authenticate
@@ -9,6 +9,7 @@ import json
 import datetime
 
 from .models import *
+from .forms import CustomerForms
 from .utils import cartData,cookieCart,guestOrder
 
 @login_required
@@ -128,4 +129,31 @@ def register(request):
     else:
         form = UserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
+
+
+def customer_profile(request):
+    context = {}
+    # try:
+    #     post = request.user.post
+    # except Customer.DoesNotExist:
+    #     post = Customer(user=request.user)
+    if request.method == "POST":
+        print('hello')
+        form = CustomerForms(data=request.POST, instance=request.user)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = request.user
+            post.save()
+            return redirect('store')
+        else:
+            form = CustomerForms(instance=request.user)
+            context['form'] = form
+    # else:
+    #     form = CustomerForms(
+    #         initial={
+    #             'name': post.name,
+    #             'contact': post.contact,
+    #             'dob': post.dob,
+    #             'gender': post.gender,})
+    return render(request, 'store/profilecreate.html', context)
 
