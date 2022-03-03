@@ -10,9 +10,9 @@ GENDER_CHOICES=(
 class Customer(models.Model):
     user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=25, null=True)
-    contact = models.CharField(max_length=13, blank=False)
-    dob = models.DateField()
-    gender = models.CharField(max_length=11, choices=GENDER_CHOICES, blank=False)
+    contact = models.CharField(max_length=13, blank=True, null=False)
+    dob = models.DateField(null=True)
+    gender = models.CharField(max_length=11, choices=GENDER_CHOICES, blank=True, null=True)
 
     def __str__(self):
         return self.name

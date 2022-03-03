@@ -125,7 +125,7 @@ def register(request):
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
             login(request, user)
-            return redirect('home')
+            return redirect('profile')
     else:
         form = UserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
@@ -144,10 +144,22 @@ def customer_profile(request):
             post = form.save(commit=False)
             post.user = request.user
             post.save()
+            name = form.cleaned_data.get('name')
+            contact = form.cleaned_data.get('contact')
+            dob = form.cleaned_data.get('dob')
+            gender = form.cleaned_data.get('gender')
+            customer = Customer.objects.create(
+                user=request.user,
+                name = name,
+                contact = contact,
+                gender = gender,
+            )
+            # customer.name = name
+            customer.save()
             return redirect('store')
-        else:
-            form = CustomerForms(instance=request.user)
-            context['form'] = form
+    else:
+        form = CustomerForms(instance=request.user)
+        context['form'] = form
     # else:
     #     form = CustomerForms(
     #         initial={
