@@ -1,11 +1,17 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.shortcuts import render, redirect, reverse
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+
 import json
 import datetime
+
 from .models import *
 from .utils import cartData,cookieCart,guestOrder
 
-
+@login_required
 def store(request):
     data = cartData(request)
 
@@ -16,6 +22,11 @@ def store(request):
     products = Product.objects.all()
     context = {'products': products, 'cartItems': cartItems}
     return render(request, 'store/store.html', context)
+
+def home_view(request):
+    products = Product.objects.all()
+    context = {'products': products}
+    return render(request, 'store/index.html', context)
 
 
 def cart(request):
@@ -98,3 +109,23 @@ def processOrder(request):
 
 def paypal(request):
     return render(request, 'payment.html', {})
+
+@login_required
+def home(request):
+    return render(request, "registration/success.html", {})
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return redirect('home')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/register.html', {'form': form})
+
